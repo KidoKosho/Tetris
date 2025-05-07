@@ -44,10 +44,10 @@ public class ScorePanel extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.WHITE); // Màu chữ
-
+        g.setFont(new Font("Arial", Font.BOLD, 10));
         // Vẽ text tại các vị trí cố định
-        g.drawString("Score: " + scoreLabel, 35, 20);
-        g.drawString("LEVEL: " + levelLabel, 35, 70);
-        g.drawString("LINES: " + linesLabel, 35, 120);
+        g.drawString("SCORE: " + scoreLabel, 35, 30);
+        g.drawString("LEVEL: " + levelLabel, 35, 80);
+        g.drawString("LINES: " + linesLabel, 35, 130);
     }
 }

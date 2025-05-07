@@ -4,8 +4,7 @@ import Tetris.Tetromino;
 import Tetris.Game.ScorePanel;
 import Tetris.Game.HoldPanel;
 import Tetris.Game.NextPanel;
-import Tetris.main.Main;
-import Tetris.main.TetrisGame;
+import Tetris.main.App;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +32,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         this.scorePanel = scorePanel;
         this.nextPanel = nextPanel;
         this.holdPanel = holdPanel;
-        holdPanel.SetBoard(this);
+        if(holdPanel != null) holdPanel.SetBoard(this);
         OnInit();
     }
 
@@ -245,7 +244,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         spawn();
         if (!isValid(current.getRow(), current.getCol(), current.getShape())) {
             timer.stop();
-            Main.getInstance().EndGame();
+            App.getInstance().EndGame();
         }
     }
 

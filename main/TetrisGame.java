@@ -13,49 +13,53 @@ import java.awt.*;
  * Thiết lập GUI bao gồm các panel: Hold, Score, Next và bảng chơi chính.
  */
 public class TetrisGame extends JFrame {
-    private ScorePanel scorePanel;
-    private NextPanel nextPanel;
+    private ScorePanel scorePanel = null;
+    private NextPanel nextPanel = null;
+    private HoldPanel holdPanel = null;
 
-    /**
-     * Constructor khởi tạo cửa sổ game và giao diện trò chơi.
-     */
     public TetrisGame() {
-        setTitle("Tetris Game");                   // Tiêu đề cửa sổ
-        setDefaultCloseOperation(EXIT_ON_CLOSE);  // Đóng chương trình khi tắt cửa sổ
-        setResizable(false);                      // Không cho phép thay đổi kích thước
-        setLayout(null);                          // Tạm thời bỏ layout
+        setupWindow();
+        initComponents();
+        assembleGUI();
+    }
+
+    /** Cài đặt thuộc tính của cửa sổ chính */
+    private void setupWindow() {
+        setTitle("Tetris Game");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setLayout(new BorderLayout());
         setSize(500, 600);
+    }
 
-        setLayout(new BorderLayout());            // Sử dụng BorderLayout để chia layout
+    /** Khởi tạo các thành phần GUI */
+    private void initComponents() {
+        holdPanel = new HoldPanel();
+        scorePanel = new ScorePanel();
+        nextPanel = new NextPanel();
+    }
 
-        // ==== Panel bên trái: HoldPanel ở trên + ScorePanel ở dưới ====
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new BorderLayout());
+    /** Gắn các thành phần vào cửa sổ */
+    private void assembleGUI() {
+        // ==== Panel bên trái: HoldPanel + ScorePanel ====
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        if (holdPanel != null) leftPanel.add(holdPanel, BorderLayout.NORTH);
+        if (scorePanel != null) leftPanel.add(scorePanel, BorderLayout.SOUTH);
 
-        HoldPanel HoldPanel = new HoldPanel();     // Panel giữ khối Tetromino
-        leftPanel.add(HoldPanel, BorderLayout.NORTH);
+        // ==== Panel bên phải: NextPanel ====
+        JPanel rightPanel = new JPanel(new BorderLayout());
+        if (nextPanel != null) rightPanel.add(nextPanel, BorderLayout.NORTH);
 
-        scorePanel = new ScorePanel();             // Panel điểm số, cấp độ, dòng hoàn thành
-        leftPanel.add(scorePanel, BorderLayout.SOUTH);
+        // ==== Bảng chơi chính ====
+        Board board = new Board(scorePanel, nextPanel, holdPanel);
 
-        // ==== Panel bên phải: NextPanel hiển thị các khối tiếp theo ====
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BorderLayout());
+        // ==== Thêm các panel vào cửa sổ ====
+        add(leftPanel, BorderLayout.WEST);
+        add(board, BorderLayout.CENTER);
+        add(rightPanel, BorderLayout.EAST);
 
-        nextPanel = new NextPanel();               // Panel khối sắp tới
-        rightPanel.add(nextPanel, BorderLayout.NORTH);
-
-        // ==== Bảng chơi chính nằm giữa ====
-        Board board = new Board(scorePanel, nextPanel, HoldPanel);
-
-        // Thêm các panel vào vị trí phù hợp trong giao diện chính
-        add(leftPanel, BorderLayout.WEST);     // Bên trái
-        add(board, BorderLayout.CENTER);       // Trung tâm
-        add(rightPanel, BorderLayout.EAST);    // Bên phải
-
-        // Tự động điều chỉnh kích thước dựa theo nội dung
         pack();
-        setLocationRelativeTo(null);           // Căn giữa màn hình
-        setVisible(true);                      // Hiển thị cửa sổ
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 }
