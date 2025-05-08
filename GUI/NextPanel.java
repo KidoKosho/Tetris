@@ -1,5 +1,5 @@
-package Tetris.Game;
-import Tetris.Tetromino;
+package Tetris.GUI;
+import Tetris.Board.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;

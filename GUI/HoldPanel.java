@@ -1,10 +1,10 @@
-package Tetris.Game;
+package Tetris.GUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import Tetris.Tetromino;
+import Tetris.Board.Tetromino;
 import Tetris.Board.Board;
 
 /**

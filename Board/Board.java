@@ -1,9 +1,8 @@
 package Tetris.Board;
 
-import Tetris.Tetromino;
-import Tetris.Game.ScorePanel;
-import Tetris.Game.HoldPanel;
-import Tetris.Game.NextPanel;
+import Tetris.GUI.ScorePanel;
+import Tetris.GUI.HoldPanel;
+import Tetris.GUI.NextPanel;
 import Tetris.main.App;
 
 import javax.swing.*;

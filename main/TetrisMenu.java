@@ -45,7 +45,7 @@ public class TetrisMenu extends JFrame {
                             "↑: Xoay khối\n" +
                             "\nHoàn thành hàng để ghi điểm!",
                     "Cách chơi",
-                    JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);   
         });
 
         panel.add(title);

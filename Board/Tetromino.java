@@ -1,6 +1,5 @@
-package Tetris;
+package Tetris.Board;
 
-import Tetris.Board.Board;
 import java.awt.*;
 import java.util.Random;
 

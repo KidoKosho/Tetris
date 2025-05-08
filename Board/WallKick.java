@@ -1,4 +1,4 @@
-package Tetris;
+package Tetris.Board;
 
 public class WallKick {
     // Kick data cho JLSTZ: 4 trạng thái (0 → R, R → 2, 2 → L, L → 0)
