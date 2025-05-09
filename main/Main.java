@@ -5,3 +5,4 @@ public class Main {
         App.getInstance().OpenMenu();  // Gọi phương thức mở game từ Singleton
     }
 }
+   
