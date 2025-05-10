@@ -49,7 +49,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         // Thêm 3 mảnh đầu vào hàng đợi
         for (int i = 0; i < 3; i++) queue.add(Tetromino.randomTetromino());
-
+        generateCompactRandomRows();
         spawn(); // Sinh mảnh đầu tiên
         timer = new Timer(500, this); // Thiết lập tốc độ ban đầu
         timer.start();
@@ -90,6 +90,28 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                     grid[r][c] = 1;
                     gridColor[r][c] = current.getColor();
                 }
+    }
+    public void Check(){
+        for (int row = 0; row < ROWS; row++) {
+            boolean hasBlock = false;
+            for (int col = 0; col < COLS; col++) {
+                if (grid[row][col] == 1) {
+                    hasBlock = true;
+                    break;
+                }
+            }
+            if (hasBlock) {
+                // Hóa toàn bộ hàng này
+                for (int col = 0; col < COLS; col++) {
+                    if (grid[row][col] == 1) {
+                        grid[row][col] = 0;
+                        gridColor[row][col] = Color.BLACK; // đổi màu hoặc xử lý khác
+                    }
+                }
+                break; // chỉ hóa hàng đầu tiên
+            }
+        }
+
     }
 
     // Xử lý xóa dòng nếu đầy
@@ -202,7 +224,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             }
         }
     }
-
+    private void generateCompactRandomRows() {
+       int random = 2,randomrow = 0;
+        while (randomrow <random) {
+            int row = ROWS - 1 - (int)(Math.random() * 5); // hàng từ 1 đến 5 tính từ dưới lên
+            randomrow++;
+            int ranomblock = 5;
+           while(ranomblock!=0){
+               int col = (int)(Math.random() * COLS);
+               grid[row][col] =1;
+               gridColor[row][col] = Color.WHITE;
+               ranomblock--;
+           }
+        }
+    }
     // Vẽ mảnh hiện tại đang rơi
     private void drawCurrentPiece(Graphics g) {
         int[][] shape = current.getShape();
@@ -261,17 +296,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         if (code == KeyEvent.VK_Z)
             current.rotate(this, -1);
         if (code == KeyEvent.VK_SPACE) {
-            // Xử lý rơi thẳng xuống (Hard Drop)
-            while (isValid(current.getRow() + 1, current.getCol(), current.getShape())) {
-                current.setRow(current.getRow() + 1);
-            }
-            Draw(); // Đặt mảnh luôn khi đã rơi xuống đáy
+            Check();
+            // Đặt mảnh luôn khi đã rơi xuống đáy
         }
 
-        if (code == KeyEvent.VK_V) {
-            // Đặt mảnh ngay lập tức vào vị trí hiện tại
-            Draw();
-        }
+//        if (code == KeyEvent.VK_V) {
+//            // Đặt mảnh ngay lập tức vào vị trí hiện tại
+//            Draw();
+//        }
         repaint();
     }
 
